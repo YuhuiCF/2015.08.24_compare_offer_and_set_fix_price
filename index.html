@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="progressBar">
+        <span class="percentage"></span>%
+    </div>
+    <div id="serviceSelection">
+        <!--
+        <div class="selectionCompleted">
+            Gewählter Service: <span></span>
+        </div>
+        <input placeholder="Wählen Sie Ihr Service">
+        <ul></ul>
+        -->
+        <div class="selectionCompleted">
+            Gewählter Service: <span></span>
+        </div>
+        <select>
+            <option value="-1">-- Service wählen --</option>
+            <option value="409868">Anlasser, Starter (Neuteil) wechseln (SP)</option>
+            <option value="412819">Anlasser, Starter (Austauschteil) wechseln (SP)</option>
+            <option value="407532">Bremsservice komplett (Scheiben) (SP)</option>
+            <option value="407535">Bremsbeläge/Klötze vorne wechseln (SP)</option>
+            <option value="407533">Bremsservice vorne (Scheiben) (SP)</option>
+            <option value="407536">Bremsbeläge hinten wechseln (SP)</option>
+            <option value="407534">Bremsservice hinten (Scheiben) (SP)</option>
+            <option value="423855">Bremsbacken hinten (Trommelbremse) wechseln (SP)</option>
+            <option value="423854">Bremsservice hinten (Trommelbremse) (SP)</option>
+            <option value="409869">Getriebe Neuteil</option>
+            <option value="412820">Getriebe Austauschteil</option>
+            <option value="205950">Kotflügel hinten links wechseln</option>
+            <option value="423853">Lichtcheck</option>
+            <option value="409873">Motorölwechsel inklusive Ölfilter (SP)</option>
+            <option value="407546">Radlager hinten rechts wechseln (SP)</option>
+            <option value="407545">Radlager hinten links wechseln (SP)</option>
+            <option value="407543">Radlager vorne links wechseln (SP)</option>
+            <option value="407544">Radlager vorne rechts wechseln (SP)</option>
+            <option value="407555">Wasserpumpe ohne Zahnriemen</option>
+            <option value="407556">Wasserpumpe mit Zahnriemen</option>
+        </select>
+    </div>
+    <!--
+    <div id="regionSelection">
+        <div class="selectionCompleted">
+            Gewählte Region: <span></span>
+        </div>
+        <input placeholder="Wählen Sie Ihre Region">
+        <ul></ul>
+    </div>
+    -->
+    <div id="locationSelection">
+        <div class="selectionCompleted">
+            Ihre Werkstatt: <span>Aigner KFZ Service seit 1966</span>
+        </div>
+    </div>
+    <div id="vehicleSelection">
+        <div class="selectFZA">
+            <select>
+                <option value="-1">-- Fahrzeugart wählen --</option>
+            </select>
+        </div>
+        <div class="selectBrand">
+            <select>
+                <option value="-1">-- Hersteller wählen --</option>
+            </select>
+        </div>
+        <div class="selectCT">
+            <div class="selectCTYear">
+                <select>
+                    <option value="-1">-- Jahr --</option>
+                </select>
+            </div>
+            <div class="selectCTMonth">
+                <select>
+                    <option value="-1">-- Monat --</option>
+                </select>
+            </div>
+        </div>
+        <div class="selectSeries">
+            <select>
+                <option value="-1">-- Baureihe wählen --</option>
+            </select>
+        </div>
+
+        <div class="error noVehiclesForService">
+            Leider ist der Service für die gewählte Baureihe nicht verfügbar.
+        </div>
+        <div class="error noVehiclesForCategory">
+            Leider ist kein Fahrzeug für die gewählte Baureihe gefunden.
+        </div>
+        <div class="mask">
+            Daten werden geladen
+        </div>
+    </div>
+    <div id="offerComparison" style="display:none;">
+        <div class="mask">
+            Daten werden geladen
+        </div>
+        <div class="template">
+            <div class="offerSingle">
+                <div class="vehicle"></div>
+                <div class="laborNetMin"></div>
+                <div class="laborNetMax"></div>
+                <div class="laborNetMe"></div>
+                <div class="partNetMin"></div>
+                <div class="partNetMax"></div>
+                <div class="partNetMe"></div>
+                <div class="fluidNetMin"></div>
+                <div class="fluidNetMax"></div>
+                <div class="fluidNetMe"></div>
+                <div class="fixedNetMin"></div>
+                <div class="fixedNetMax"></div>
+                <div class="fixedNetMe"></div>
+                <div class="lacquerNetMin"></div>
+                <div class="lacquerNetMax"></div>
+                <div class="lacquerNetMe"></div>
+                <div class="netMin"></div>
+                <div class="netMax"></div>
+                <div class="netMe"></div>
+            </div>
+        </div>
+        <div class="offerHeadline">
+            <div class="vehicle">Fahrzeug</div>
+            <div class="laborNetMin">Min netto Arbeitspreis</div>
+            <div class="laborNetMax">Max netto Arbeitspreis</div>
+            <div class="laborNetMe">Mein netto Arbeitspreis</div>
+            <div class="partNetMin">Min netto Teilepreis</div>
+            <div class="partNetMax">Max netto Teilepreis</div>
+            <div class="partNetMe">Mein netto Teilepreis</div>
+            <div class="fluidNetMin">Min netto Flüssigkeitenpreis</div>
+            <div class="fluidNetMax">Max netto Flüssigkeitenpreis</div>
+            <div class="fluidNetMe">Mein netto Flüssigkeitenpreis</div>
+            <div class="fixedNetMin">Min netto Festpreis</div>
+            <div class="fixedNetMax">Max netto Festpreis</div>
+            <div class="fixedNetMe">Mein netto Festpreis</div>
+            <div class="lacquerNetMin">Min netto Lackpreis</div>
+            <div class="lacquerNetMax">Max netto Lackpreis</div>
+            <div class="lacquerNetMe">Mein netto Lackpreis</div>
+            <div class="netMin">Min netto Preis</div>
+            <div class="netMax">Max netto Preis</div>
+            <div class="netMe">Mein netto Preis</div>
+        </div>
+    </div>
+
+    <!-- build:css css/styles.css -->
+    <link media="all" type="text/css" href="css/styles.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <!-- build:js js/scripts.js -->
+    <script type="text/javascript" src="js/lib/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.xdomainrequest.js"></script>
+
+    <script type="text/javascript" src="js/fairgarage.js"></script>
+    <script type="text/javascript" src="js/progressBar.js"></script>
+
+    <script type="text/javascript" src="js/offer.js"></script>
+    <script type="text/javascript" src="js/locationSelection.js"></script>
+
+    <script type="text/javascript" src="js/serviceSelection.js"></script>
+    <script type="text/javascript" src="js/vehicleSelection.js"></script>
+
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <!-- endbuild -->
+
+</body>
+</html>

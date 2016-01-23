@@ -1,0 +1,52 @@
+
+.error{
+    display: none;
+}
+.template{
+    display: none;
+}
+.mask{
+	display: none;
+	/*
+	position:absolute;
+	height: 100%;
+	width:100%;
+	*/
+}
+
+#progressBar{
+    display: none;
+}
+
+#locationSelection{
+    margin: 20px 0;
+}
+
+/*
+#vehicleSelection{
+	position:relative;
+}
+*/
+
+#offerComparison{
+    display: table; margin-top: 20px;
+}
+.offerHeadline,
+.offerSingle{
+    display: table-row;
+}
+.offerHeadline > *,
+.offerSingle > *{
+    display: table-cell;text-align: right;border:1px solid #ddd;
+}
+.offerHeadline > *{
+    font-weight: bold;
+}
+.offerHeadline .vehicle,
+.offerSingle .vehicle{
+    text-align: left;
+}
+
+.noService *{color:red;}
+.noOffer *{color:brown;}
+.noOfferForLocation *{color:blue;}
