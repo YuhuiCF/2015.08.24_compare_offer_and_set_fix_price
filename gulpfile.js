@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var minifyHTML = require('gulp-minify-html');
 var minifyCSS = require('gulp-minify-css');
 var usemin = require('gulp-usemin');
+var wrapper = require('gulp-wrapper');
 //var rev = require('gulp-rev');
 
 var paths = {
@@ -30,9 +31,20 @@ gulp.task('usemin', function () {
                 quotes: true
             })],
             //js: [uglify(), rev()]
-            js: [uglify()]
+            js: ['concat'],
+            inlinecss: [ minifyCSS(), 'concat']
         }))
         .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('minifyJS', ['usemin'], function(){
+    return gulp.src('./dist/js/scripts.js')
+        .pipe(wrapper({
+            header: '(function(){\n',
+            footer: '\n})();'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/js'));
 });
 
 // Lint Task
@@ -54,9 +66,9 @@ gulp.task('sass', function() {
 // Watch Files For Changes
 gulp.task('watch', function() {
     gulp.watch(paths.scripts.lint, ['lint']);
-    gulp.watch([paths.html, paths.css, paths.scripts.all], ['usemin']);
+    gulp.watch([paths.html, paths.css, paths.scripts.all], ['usemin', 'minifyJS']);
     //gulp.watch('scss/*.scss', ['sass']);
 });
 
 // Default Task
-gulp.task('default', ['lint','usemin','watch']);
+gulp.task('default', ['watch']);
