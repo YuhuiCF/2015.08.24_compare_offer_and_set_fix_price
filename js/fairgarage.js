@@ -238,6 +238,40 @@
         };
 
         /**
+          * @desc get location, API base path: /smp/api/locations, API full path: /smp/api/locations/{locationId}
+          * @param {object} pobj
+              * @key {string} locationId - ID of the location; if not set, default value would be self.getProperty('locationId')
+              * @key {object} ajax (opt) - key/value pairs of jQuery ajax() to be added/overwritten, if allowed
+        */
+        self.getLocation = function(pobj){
+            if (isType(pobj,'undefined')) {
+                pobj = {};
+            }
+            var functionName = 'getLocation';
+            var ajax = pobj.ajax || {};
+            // check mandatory fields start
+            var paramConfigs = [
+                {
+                    paramName: 'locationId',
+                    paramType: 'string'
+                }
+            ];
+            var paramsSetResult = self.areMandatoryParmsSet(functionName,pobj,paramConfigs);
+            var areParamsSet = paramsSetResult[0];
+            pobj = paramsSetResult[1];
+            if (!areParamsSet){
+                return;
+            }
+            // check mandatory fields end
+            var locationId = !isType(pobj.locationId,'undefined') ? pobj.locationId : self.getProperty('locationId');
+            var obj = {
+                apiUrl: 'locations/' + locationId,
+                functionName: functionName + '()'
+            };
+            self.api($.extend(obj,ajax));
+        };
+
+        /**
           * @desc get offer by offer key, API base path: /smp/api/offers, API full path: /smp/api/offers/{offerKey}/details
           * @param {object} pobj
               * @key {string} offerKey - offer key

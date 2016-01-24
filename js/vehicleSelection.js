@@ -6,6 +6,9 @@
     * @key {object} OF, Offer object
     * @key {string} model, DOM selector, on which the model is used
     * @key {number} foundVehicleLimit, max number of found vehicle
+    * @key {boolean} compareWhenAllVehiclesFound, start offer processes after all valid vehicle found or not
+    * @key {number} maxGetVehiclesByCategory, number of maximum vehicle found by each category
+    * @key {number} numberOfMaxValidVehicles, number of maximum valid vehicle used for offer comparison
 */
 
 var vehicleSelection = function(pobj){
@@ -379,10 +382,6 @@ var vehicleSelection = function(pobj){
                     vehicleType: vehicleType,
                     constructionTime: properties.constructionTime
                 });
-                OF.createUserSearch({
-                    vehicleType: vehicleType,
-                    constructionTime: properties.constructionTime
-                });
             });
         }
     }
@@ -538,10 +537,6 @@ var vehicleSelection = function(pobj){
                                 properties.goodVehicleTypes.push(vehicleType);
                             } else {
                                 OF.addVehicle({
-                                    vehicleType: vehicleType,
-                                    constructionTime: properties.constructionTime
-                                });
-                                OF.createUserSearch({
                                     vehicleType: vehicleType,
                                     constructionTime: properties.constructionTime
                                 });

@@ -42,7 +42,8 @@ locationSelection({
     OF: OF,
     model: selector.model.locationSelection,
     signature: '45813b51f79b225aee020457ec2e1b99-b85b81a159c28165ae7a26dc96c5bf39',
-    searchForLocation: true
+    searchForLocation: true,
+    locationId: 29
 });
 
 var VS = new vehicleSelection({

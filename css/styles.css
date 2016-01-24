@@ -1,6 +1,7 @@
 
 .error{
     display: none;
+    color: red;
 }
 .template{
     display: none;

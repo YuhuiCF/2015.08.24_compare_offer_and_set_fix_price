@@ -6,6 +6,7 @@
     * @key {object} OF, Offer object
     * @key {string} model, DOM selector, on which the model is used
     * @key {boolean} searchForLocation, if offer for this location should be searched
+    * @key {number} locationId, location ID
 */
 
 var locationSelection = function(pobj){
@@ -25,27 +26,43 @@ var locationSelection = function(pobj){
     }
     var searchForLocation = pobj.searchForLocation;
     var signature = pobj.signature;
+    var locationId = pobj.locationId;
 
-    // TODO: make dynamical
+    var selector = {
+        selectionCompleted: '.selectionCompleted',
+        locationName: '.locationName'
+    };
+
     FG.properties.region = {
         //signature: 'b17c390700430aa30a46a55be0b7c054-786e19fdbb19ff2c50e6239528674a9a'
         signature: '45813b51f79b225aee020457ec2e1b99-b85b81a159c28165ae7a26dc96c5bf39'
     };
 
-    FG.getRegionBySignature({
-        signature: signature,
-        ajax: {
-            success: function(data){
-                FG.properties.region = data;
+    var getRegionBySignature = function(signature){
+        FG.getRegionBySignature({
+            signature: signature,
+            ajax: {
+                success: function(data){
+                    FG.properties.region = data;
+                }
             }
-        }
-    });
-
-    if (searchForLocation === true) {
-        OF.setLocation({
-            //id: 29
-            //id: 74
-            id: 419
         });
+    };
+
+    if (searchForLocation) {
+        FG.getLocation({
+            locationId: locationId,
+            ajax: {
+                success: function(data){
+                    $(selector.locationName, model).html(data.name);
+                    OF.setLocation({
+                        id: locationId
+                    });
+                    FG.properties.region = data.locationAddress.region;
+                }
+            }
+        });
+    } else {
+        getRegionBySignature(signature);
     }
 };

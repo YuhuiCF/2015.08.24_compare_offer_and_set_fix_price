@@ -42,7 +42,8 @@ var offers = function(pobj){
         row: {
             visibleOffers: '> .offerSingle'
         },
-        mask: '.mask'
+        mask: '.mask',
+        error: '.error'
     };
 
     var progressBarName = 'offer';
@@ -68,6 +69,7 @@ var offers = function(pobj){
     */
     self.init = function(){
         model.hide();
+        $(selector.error, model).hide();
         $(selector.row.visibleOffers, model).remove();
         var newProperties = {
             numberOfOfferSearches: 0,
@@ -101,6 +103,7 @@ var offers = function(pobj){
             vehicleName: obj.vehicleType.name,
             constructionTime: obj.constructionTime
         };
+        self.createUserSearch(obj);
     };
 
     /**
@@ -143,6 +146,10 @@ var offers = function(pobj){
                     var userSearchConfigKey = data.key;
                     var vehicleTypeId = selectedVehicle.vehicleType.id.toString();
                     self.createOfferSearch(userSearchConfigKey,vehicleTypeId,locationId);
+                },
+                error: function(){
+                    $(selector.mask, model).hide();
+                    $(selector.error, model).show();
                 },
                 complete: function(){
                     properties.numberOfRunningPostOfferSearches --;
@@ -190,6 +197,10 @@ var offers = function(pobj){
                             vehicleTypeId: vehicleTypeId,
                             locationId: locationId
                         });
+                    },
+                    error: function(){
+                        $(selector.mask, model).hide();
+                        $(selector.error, model).show();
                     },
                     complete: function(){
                         properties.numberOfRunningPostOfferSearches --;
