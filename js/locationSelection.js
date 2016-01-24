@@ -30,7 +30,8 @@ var locationSelection = function(pobj){
 
     var selector = {
         selectionCompleted: '.selectionCompleted',
-        locationName: '.locationName'
+        locationName: '.locationName',
+        mask: '.mask'
     };
 
     FG.properties.region = {
@@ -38,17 +39,29 @@ var locationSelection = function(pobj){
         signature: '45813b51f79b225aee020457ec2e1b99-b85b81a159c28165ae7a26dc96c5bf39'
     };
 
-    var getRegionBySignature = function(signature){
+    function getRegionBySignature(signature){
         FG.getRegionBySignature({
             signature: signature,
             ajax: {
                 success: function(data){
                     FG.properties.region = data;
+                },
+                complete: function(){
+                    hideMask();
                 }
             }
         });
-    };
+    }
 
+    function showMask(){
+        $(selector.mask, model).show();
+    }
+
+    function hideMask(){
+        $(selector.mask, model).hide();
+    }
+
+    showMask();
     if (searchForLocation) {
         FG.getLocation({
             locationId: locationId,
@@ -59,6 +72,9 @@ var locationSelection = function(pobj){
                         id: locationId
                     });
                     FG.properties.region = data.locationAddress.region;
+                },
+                complete: function(){
+                    hideMask();
                 }
             }
         });

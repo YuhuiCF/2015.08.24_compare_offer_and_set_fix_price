@@ -51,3 +51,5 @@
 .noService *{color:red;}
 .noOffer *{color:brown;}
 .noOfferForLocation *{color:blue;}
+.userSearchError *{color:grey;}
+.offerSearchError *{color:grey;}

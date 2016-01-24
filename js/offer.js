@@ -132,6 +132,8 @@ var offers = function(pobj){
       * @param {number or string} locationId, ID of the location
     */
     self.createUserSearch = function(selectedVehicle,locationId){
+        var vehicleTypeId = selectedVehicle.vehicleType.id.toString();
+        var row = $('#VT_' + vehicleTypeId, model);
         FG.createUserSearch({
             userSearchData: {
                 selectedVehicle: selectedVehicle,
@@ -144,11 +146,11 @@ var offers = function(pobj){
             ajax: {
                 success: function(data){
                     var userSearchConfigKey = data.key;
-                    var vehicleTypeId = selectedVehicle.vehicleType.id.toString();
                     self.createOfferSearch(userSearchConfigKey,vehicleTypeId,locationId);
                 },
                 error: function(){
                     $(selector.mask, model).hide();
+                    row.addClass('userSearchError').removeClass('checkingOffers');
                     $(selector.error, model).show();
                 },
                 complete: function(){
@@ -164,6 +166,7 @@ var offers = function(pobj){
       * @param {number or string} locationId, ID of the location
     */
     self.createOfferSearch = function(userSearchConfigKey,vehicleTypeId,locationId){
+        var row = $('#VT_' + vehicleTypeId, model);
         // searching offers for the location should be performed immediately
         if (properties.numberOfRunningPostOfferSearches >= properties.maxPostOfferSearches && typeof locationId === 'undefined') {
             setTimeout(function(){
@@ -200,6 +203,7 @@ var offers = function(pobj){
                     },
                     error: function(){
                         $(selector.mask, model).hide();
+                        row.addClass('offerSearchError').removeClass('checkingOffers');
                         $(selector.error, model).show();
                     },
                     complete: function(){
@@ -259,6 +263,7 @@ var offers = function(pobj){
             criteria.locationIds = obj.locationId;
             var isLocationOffer = true;
         }
+        var row = $('#VT_' + vehicleTypeId, model);
         FG.getOfferList({
             offerSearchKey: obj.offerSearchKey,
             criteria: criteria,
@@ -267,7 +272,7 @@ var offers = function(pobj){
                     properties.vehicleOffers[vehicleTypeId].numberOfOffers = data.length;
                     if (isLocationOffer) {
                         if (data.length === 0) {
-                            $('#VT_' + vehicleTypeId, model).addClass('noOfferForLocation').removeClass('checkingOffers');
+                            row.addClass('noOfferForLocation').removeClass('checkingOffers');
                             triggerOfferCompleteForVehicle(vehicleTypeId);
                         } else {
                             getOffer({
@@ -278,7 +283,7 @@ var offers = function(pobj){
                         }
                     } else {
                         if (data.length === 0) {
-                            $('#VT_' + vehicleTypeId, model).addClass('noOffer').removeClass('checkingOffers');
+                            row.addClass('noOffer').removeClass('checkingOffers');
                             incrementNumberOfOfferSearchesFinished();
                         } else {
                             $.each(data,function(){
