@@ -57,9 +57,8 @@ var VS = new vehicleSelection({
     foundVehicleLimit: 20*/
 });
 
-var hooks = {
-    'progressBar:complete': function(){
-        hideProgressBar();
-        VS.enableAllSelection();
-    }
+var hooks = {};
+hooks['progressBar:complete'] = function(){
+    hideProgressBar();
+    VS.enableAllSelection();
 };
