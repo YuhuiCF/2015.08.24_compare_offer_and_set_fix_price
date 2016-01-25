@@ -71,4 +71,4 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', ['watch']);
+gulp.task('default', ['lint', 'usemin', 'minifyJS']);

@@ -152,9 +152,6 @@ var offers = function(pobj){
                     $(selector.mask, model).hide();
                     row.addClass('userSearchError').removeClass('checkingOffers');
                     $(selector.error, model).show();
-                },
-                complete: function(){
-                    properties.numberOfRunningPostOfferSearches --;
                 }
             }
         });
@@ -170,7 +167,7 @@ var offers = function(pobj){
         // searching offers for the location should be performed immediately
         if (properties.numberOfRunningPostOfferSearches >= properties.maxPostOfferSearches && typeof locationId === 'undefined') {
             setTimeout(function(){
-                self.createOfferSearch(userSearchConfigKey,locationId);
+                self.createOfferSearch(userSearchConfigKey,vehicleTypeId,locationId);
             },1000);
         } else {
             properties.numberOfRunningPostOfferSearches ++;
