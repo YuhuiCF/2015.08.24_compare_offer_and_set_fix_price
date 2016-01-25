@@ -28,8 +28,10 @@ var OF = offers({
     model: selector.model.offerComparison
 });
 
+var hooks = {};
 var PB = new ProgressBar({
-    model: '#progressBar'
+    model: '#progressBar',
+    hooks: hooks
 });
 
 var SS = new serviceSelection({
@@ -57,7 +59,6 @@ var VS = new vehicleSelection({
     foundVehicleLimit: 20*/
 });
 
-var hooks = {};
 hooks['progressBar:complete'] = function(){
     hideProgressBar();
     VS.enableAllSelection();
